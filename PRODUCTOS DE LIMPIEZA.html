@@ -333,33 +333,113 @@
   .toast.show{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
   .toast svg{ width:16px; height:16px; color:var(--lime); flex-shrink:0; }
 
+  /* ---------- Favoritos ---------- */
+  .card-fav{
+    position:absolute; top:8px; right:8px; z-index:2;
+    width:30px; height:30px; border-radius:999px; border:none;
+    background:rgba(255,255,255,0.88); color:var(--steel);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:transform .15s ease, color .15s ease, background .15s ease;
+  }
+  .card-fav svg{ width:16px; height:16px; }
+  .card-fav:hover{ transform:scale(1.08); color:var(--lime-dark); }
+  .card-fav.active{ color:#B8860B; }
+  .card-fav.active svg{ fill:currentColor; }
+  .cat-pill.fav-pill{ background:var(--white); }
+  .cat-pill.fav-pill svg{ width:14px; height:14px; }
+  .cat-pill.fav-pill.active{ background:#3E3410; border-color:#3E3410; color:#F0D97A; }
+
+  /* ---------- Búsqueda: resaltado ---------- */
+  mark.hit{ background:rgba(199,220,63,0.55); color:var(--teal-dark); border-radius:3px; padding:0 1px; }
+
+  /* ---------- Presets de cantidad rápida ---------- */
+  .qty-presets{ display:flex; gap:6px; margin-top:2px; }
+  .qty-presets button{
+    font-family:var(--font-mono); font-size:0.68rem; font-weight:600;
+    color:var(--teal); background:var(--panel); border:1px solid transparent;
+    border-radius:999px; padding:4px 9px; cursor:pointer; transition:all .15s ease;
+  }
+  .qty-presets button:hover{ background:var(--teal); color:var(--white); }
+  .card-bottom{ flex-wrap:wrap; justify-content:space-between; }
+
+  /* ---------- Notas por producto en el carrito ---------- */
+  .cart-row-note{
+    width:100%; font-family:var(--font-body); font-size:0.78rem;
+    padding:7px 10px; border:1px solid var(--line); border-radius:8px;
+    background:var(--cream); color:var(--ink); margin-top:8px; resize:none;
+  }
+  .cart-row-note:focus{ border-color:var(--teal); outline:none; }
+  .cart-row-note-toggle{ background:none; border:none; color:var(--steel); font-size:0.75rem; cursor:pointer; text-decoration:underline; margin-top:8px; }
+
+  /* ---------- Descargar resumen ---------- */
+  .cart-secondary-actions{ display:flex; gap:8px; }
+  .cart-secondary-actions .btn{ flex:1; }
+
+  /* ---------- Barra fija de pedido (móvil) ---------- */
+  .mobile-order-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:70;
+    background:var(--teal-dark); color:var(--white);
+    display:none; align-items:center; justify-content:space-between; gap:14px;
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    box-shadow:0 -10px 30px -8px rgba(0,0,0,0.35);
+    transform:translateY(100%); transition:transform .25s ease;
+  }
+  .mobile-order-bar.show{ transform:translateY(0); }
+  .mobile-order-bar-info{ display:flex; flex-direction:column; gap:1px; }
+  .mobile-order-bar-info strong{ font-family:var(--font-display); font-size:0.95rem; }
+  .mobile-order-bar-info span{ font-size:0.72rem; color:var(--lime); font-family:var(--font-mono); }
+  .mobile-order-bar .btn{ flex-shrink:0; }
+
   /* ---------- Responsive ---------- */
+  @media (max-width: 1024px){
+    .grid{ grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); }
+  }
   @media (max-width: 900px){
-    .hero .wrap{ grid-template-columns:1fr; padding-top:52px; padding-bottom:52px; }
-    .hero-art{ order:-1; max-width:340px; margin:0 auto; }
+    .hero .wrap{ grid-template-columns:1fr; padding-top:44px; padding-bottom:44px; gap:36px; }
+    .hero-art{ order:-1; max-width:300px; margin:0 auto; }
+    .hero-meta{ gap:20px; }
     .trust .wrap{ grid-template-columns:repeat(2,1fr); row-gap:22px; }
     .trust-item{ border-left:none !important; padding-left:0 !important; }
-    .why .wrap{ grid-template-columns:1fr; }
-    .why-visual{ max-width:300px; margin:0 auto; }
-    footer .wrap{ grid-template-columns:1fr 1fr; }
-    .cat-nav-wrap{ top:65px; }
-    .cat-nav-inner{ flex-wrap:wrap; }
+    .why .wrap{ grid-template-columns:1fr; gap:36px; }
+    .why-visual{ max-width:280px; margin:0 auto; }
+    footer .wrap{ grid-template-columns:1fr 1fr; gap:32px 24px; }
+    .cat-nav-inner{ flex-wrap:wrap; padding:12px 20px; }
     .search-box{ width:100%; order:1; }
     .cat-nav{ order:2; width:100%; }
+    body{ padding-bottom:0; }
   }
   @media (max-width: 640px){
     .nav-links{ display:none; }
     .nav-toggle{ display:flex; }
     .account-btn span{ display:none; }
     .account-btn{ padding:9px; }
+    .cart-btn span:not(.cart-count){ display:none; }
     .form-row{ grid-template-columns:1fr; }
-    footer .wrap{ grid-template-columns:1fr; }
-    .section{ padding:60px 0; }
-    .nav{ padding:14px 20px; }
-    .wrap{ padding:0 20px; }
-    .grid{ grid-template-columns:repeat(auto-fill, minmax(155px,1fr)); gap:14px; }
-    .card-media{ height:104px; }
+    footer .wrap{ grid-template-columns:1fr; gap:28px; }
+    .section{ padding:52px 0; }
+    .section-head{ margin-bottom:32px; }
+    .nav{ padding:12px 16px; }
+    .wrap{ padding:0 16px; }
+    .grid{ grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:12px; }
+    .card-media{ height:96px; }
+    .hero-meta{ justify-content:space-between; }
+    .hero-meta div{ flex:1 1 30%; }
+    .modal{ width:100vw; max-width:100vw; left:0; right:0; top:auto; bottom:0; transform:translateY(100%); border-radius:20px 20px 0 0; max-height:92vh; }
+    .modal.show{ transform:translateY(0); }
+    .cart-drawer{ width:100vw; }
+    body.has-cart-items{ padding-bottom:74px; }
+    .mobile-order-bar{ display:flex; }
+    .final-actions{ flex-direction:column; width:100%; }
+    .final-actions .btn{ width:100%; }
   }
+  @media (max-width: 400px){
+    .hero h1{ max-width:14ch; }
+    .trust .wrap{ grid-template-columns:1fr 1fr; }
+    .grid{ grid-template-columns:repeat(auto-fill, minmax(135px,1fr)); }
+  }
+
+  /* Altura de header dinámica para offsets de scroll (fallback si JS no corre) */
+  .cat-nav-wrap{ position:sticky; top:var(--header-h, 73px); }
 </style>
 </head>
 <body>
@@ -566,6 +646,15 @@
   </div>
 </footer>
 
+<!-- Barra fija de pedido (solo visible en móvil con productos en el pedido) -->
+<div class="mobile-order-bar" id="mobileOrderBar">
+  <div class="mobile-order-bar-info">
+    <strong id="mobileOrderUnits">0 piezas</strong>
+    <span id="mobileOrderLines">0 productos</span>
+  </div>
+  <button type="button" class="btn btn-primary btn-sm" onclick="openCart()">Ver pedido</button>
+</div>
+
 <!-- Overlay -->
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
@@ -586,7 +675,10 @@
       <strong id="cartUnitsCount">0</strong>
     </div>
     <button class="btn btn-primary btn-block" id="checkoutBtn" onclick="openCheckout()" disabled>Enviar pedido por WhatsApp</button>
-    <button class="cart-clear" id="cartClearBtn" onclick="clearCart()" style="display:none;">Vaciar pedido</button>
+    <div class="cart-secondary-actions">
+      <button class="btn btn-outline btn-sm" id="downloadBtn" onclick="downloadOrderSummary()" style="display:none;">Descargar resumen</button>
+      <button class="cart-clear" id="cartClearBtn" onclick="clearCart()" style="display:none;">Vaciar pedido</button>
+    </div>
   </div>
 </aside>
 
@@ -624,6 +716,10 @@
         <input id="direccion" type="text" placeholder="Dirección de entrega o nombre de sucursal">
       </div>
       <div class="field">
+        <label for="fechaEntrega">Fecha de entrega preferida <span class="opt">(opcional)</span></label>
+        <input id="fechaEntrega" type="date">
+      </div>
+      <div class="field">
         <label for="notas">Notas adicionales <span class="opt">(opcional)</span></label>
         <textarea id="notas" rows="2" placeholder="Horario de entrega, referencias, etc."></textarea>
       </div>
@@ -631,7 +727,7 @@
         <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.1-.6-.1-.3-.7-1.7-.9-2.1-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.3-.9 1-.9 2.3 0 1.3 1 2.6 1.1 2.8.1.2 1.9 2.9 4.6 4 2.7 1.1 2.7.7 3.2.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4 0-.1-.1-.2-.3-.3Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 20.2 12 8.2 8.2 0 0 1 12 20.2Z"/></svg>
         Enviar pedido por WhatsApp
       </button>
-      <p class="modal-note">Se abrirá WhatsApp con tu pedido ya redactado, listo para enviar.</p>
+      <p class="modal-note">Se abrirá WhatsApp con tu pedido ya redactado, listo para enviarlo.</p>
     </form>
   </div>
 </div>
@@ -842,8 +938,12 @@
   ];
 
   let cart = {};           // id -> qty
+  let cartNotes = {};      // id -> nota opcional del producto
+  let favorites = new Set(); // ids marcados como favoritos (sesión actual)
   let currentUser = null;  // { uid, email, negocio, contacto, telefono } | null
   let activeQuery = '';
+  let showOnlyFavorites = false;
+  const FAV_PILL_ID = 'fav-pill';
 
   const catById = id => CATEGORIES.find(c => c.id === id);
   const iconFor = cat => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${cat.icon}</svg>`;
@@ -853,10 +953,34 @@
      --------------------------------------------------------------------- */
   function renderCatNav(){
     const nav = document.getElementById('catNav');
-    nav.innerHTML = CATEGORIES.map(cat=>{
+    const favBtn = `<button type="button" class="cat-pill fav-pill" id="${FAV_PILL_ID}" onclick="toggleFavoritesFilter()" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8L12 3.5Z"/></svg>
+      Favoritos<span class="pill-count" id="favPillCount">0</span>
+    </button>`;
+    const catBtns = CATEGORIES.map(cat=>{
       const count = PRODUCTS.filter(p=>p.cat===cat.id).length;
       return `<button type="button" class="cat-pill" data-target="${cat.id}" onclick="scrollToCat('${cat.id}')">${cat.short}<span class="pill-count">${count}</span></button>`;
     }).join('');
+    nav.innerHTML = favBtn + catBtns;
+  }
+
+  function toggleFavoritesFilter(){
+    showOnlyFavorites = !showOnlyFavorites;
+    const pill = document.getElementById(FAV_PILL_ID);
+    if(pill){
+      pill.classList.toggle('active', showOnlyFavorites);
+      pill.setAttribute('aria-pressed', String(showOnlyFavorites));
+    }
+    filterCatalog(document.getElementById('searchInput') ? document.getElementById('searchInput').value : '');
+  }
+
+  function toggleFavorite(id){
+    if(favorites.has(id)) favorites.delete(id); else favorites.add(id);
+    const btn = document.querySelector(`.card-fav[data-id="${id}"]`);
+    if(btn) btn.classList.toggle('active', favorites.has(id));
+    const countEl = document.getElementById('favPillCount');
+    if(countEl) countEl.textContent = favorites.size;
+    if(showOnlyFavorites) filterCatalog(document.getElementById('searchInput').value);
   }
 
   function renderFooterLinks(){
@@ -894,11 +1018,18 @@
       <div class="card-media">
         ${iconFor(cat)}
         <span class="card-ref">REF. ${p.ref}</span>
+        <button type="button" class="card-fav" data-id="${p.id}" onclick="toggleFavorite('${p.id}')" aria-label="Marcar ${p.name} como favorito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8L12 3.5Z"/></svg>
+        </button>
       </div>
       <div class="card-content">
-        <h4>${p.name}</h4>
+        <h4 data-role="card-title">${p.name}</h4>
         <span class="card-pres">${p.pres}</span>
         <div class="card-bottom">
+          <div class="qty-presets">
+            <button type="button" onclick="addQty('${p.id}', 5)">+5</button>
+            <button type="button" onclick="addQty('${p.id}', 10)">+10</button>
+          </div>
           <div class="stepper">
             <button type="button" aria-label="Quitar uno de ${p.name}" onclick="changeQty('${p.id}', -1)">−</button>
             <span class="qty" id="qty-${p.id}">0</span>
@@ -912,7 +1043,22 @@
   /* ---------------------------------------------------------------------
      BUSCADOR
      --------------------------------------------------------------------- */
+  function highlightText(text, query){
+    if(!query) return text;
+    try{
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(`(${escaped})`, 'ig');
+      return text.replace(re, '<mark class="hit">$1</mark>');
+    } catch(err){ return text; }
+  }
+
+  let searchDebounce = null;
   function filterCatalog(query){
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(()=> applyFilters(query), 90);
+  }
+
+  function applyFilters(query){
     activeQuery = (query || '').trim().toLowerCase();
     const searchBox = document.getElementById('searchBox');
     searchBox.classList.toggle('has-value', activeQuery.length > 0);
@@ -926,9 +1072,16 @@
       let visibleInGroup = 0;
 
       cards.forEach(card=>{
-        const matches = !activeQuery || card.dataset.name.includes(activeQuery) || card.dataset.ref.includes(activeQuery);
+        const id = card.id.replace('card-','');
+        const p = PRODUCTS.find(x=>x.id===id);
+        const matchesQuery = !activeQuery || card.dataset.name.includes(activeQuery) || card.dataset.ref.includes(activeQuery);
+        const matchesFav = !showOnlyFavorites || favorites.has(id);
+        const matches = matchesQuery && matchesFav;
         card.classList.toggle('is-hidden', !matches);
         if(matches) visibleInGroup++;
+
+        const titleEl = card.querySelector('[data-role="card-title"]');
+        if(titleEl && p) titleEl.innerHTML = highlightText(p.name, activeQuery);
       });
 
       group.classList.toggle('is-filtered-out', visibleInGroup === 0);
@@ -943,7 +1096,7 @@
   function clearSearch(){
     const input = document.getElementById('searchInput');
     input.value = '';
-    filterCatalog('');
+    applyFilters('');
     input.focus();
   }
 
@@ -951,7 +1104,7 @@
     if(activeQuery) clearSearch();
     const target = document.getElementById(catId);
     if(!target) return;
-    const offset = window.innerWidth <= 900 ? 190 : 150;
+    const offset = window._scrollOffset || 150;
     window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth' });
   }
 
@@ -972,6 +1125,10 @@
     updateCartBadge();
     renderCartDrawer();
     if(delta > 0) showToast('Agregado a tu pedido');
+  }
+
+  function addQty(id, amount){
+    changeQty(id, amount);
   }
 
   function setQty(id, value){
@@ -1004,6 +1161,14 @@
     el.dataset.empty = units === 0 ? 'true' : 'false';
     el.classList.remove('bump');
     requestAnimationFrame(()=> el.classList.add('bump'));
+
+    const bar = document.getElementById('mobileOrderBar');
+    if(bar){
+      bar.classList.toggle('show', units > 0);
+      document.getElementById('mobileOrderUnits').textContent = `${units} pieza${units===1?'':'s'}`;
+      document.getElementById('mobileOrderLines').textContent = `${totalLines()} producto${totalLines()===1?'':'s'}`;
+    }
+    document.body.classList.toggle('has-cart-items', units > 0);
   }
 
   function renderCartDrawer(){
@@ -1014,6 +1179,7 @@
     document.getElementById('cartUnitsCount').textContent = totalUnits();
     document.getElementById('checkoutBtn').disabled = ids.length === 0;
     document.getElementById('cartClearBtn').style.display = ids.length === 0 ? 'none' : 'block';
+    document.getElementById('downloadBtn').style.display = ids.length === 0 ? 'none' : 'block';
 
     if(ids.length === 0){
       wrap.innerHTML = `
@@ -1029,6 +1195,7 @@
       if(!p) return '';
       const cat = catById(p.cat);
       const qty = cart[id];
+      const note = cartNotes[id] || '';
       return `
       <div class="cart-row">
         <div class="cart-row-media">${iconFor(cat)}</div>
@@ -1042,10 +1209,16 @@
               <button type="button" aria-label="Agregar uno" onclick="changeQty('${p.id}', 1)">+</button>
             </div>
           </div>
+          <textarea class="cart-row-note" placeholder="Nota para este producto (ej. marca, color)" oninput="setCartNote('${p.id}', this.value)">${note}</textarea>
           <button type="button" class="cart-row-remove" onclick="setQty('${p.id}', 0)">Quitar</button>
         </div>
       </div>`;
     }).join('');
+  }
+
+  function setCartNote(id, value){
+    if(value && value.trim()){ cartNotes[id] = value; }
+    else { delete cartNotes[id]; }
   }
 
   /* ---------------------------------------------------------------------
@@ -1079,6 +1252,10 @@
     document.getElementById('overlay').classList.add('show');
     document.getElementById('checkoutModal').classList.add('show');
     document.body.classList.add('lock');
+    setTimeout(()=>{
+      const negocioEl = document.getElementById('negocio');
+      if(negocioEl && !negocioEl.value) negocioEl.focus();
+    }, 260);
   }
   function closeCheckout(){
     document.getElementById('checkoutModal').classList.remove('show');
@@ -1145,6 +1322,7 @@
       const contacto = document.getElementById('contacto2').value.trim();
       const telefono = document.getElementById('telefono').value.trim();
       const direccion = document.getElementById('direccion').value.trim();
+      const fechaEntrega = document.getElementById('fechaEntrega').value;
       const notas = document.getElementById('notas').value.trim();
 
       const telDigits = telefono.replace(/\D/g,'');
@@ -1162,12 +1340,15 @@
       lines.push(`👤 Solicita: ${contacto}`);
       lines.push(`📞 Teléfono: ${telefono}`);
       if(direccion) lines.push(`📍 Dirección / sucursal: ${direccion}`);
+      if(fechaEntrega) lines.push(`📅 Entrega preferida: ${fechaEntrega}`);
       lines.push('');
       lines.push('🛒 *Productos solicitados:*');
       Object.keys(cart).forEach((id, i)=>{
         const p = PRODUCTS.find(x=>x.id===id);
         if(!p) return;
-        lines.push(`${i+1}. ${p.name} (${p.pres}) — cantidad: ${cart[id]}`);
+        let line = `${i+1}. ${p.name} (${p.pres}) — cantidad: ${cart[id]}`;
+        if(cartNotes[id]) line += ` — nota: ${cartNotes[id]}`;
+        lines.push(line);
       });
       lines.push('');
       if(notas) lines.push(`📄 Notas: ${notas}`);
@@ -1184,6 +1365,57 @@
       showToast('Hubo un problema al armar el pedido, intenta de nuevo');
     }
     return false;
+  }
+
+  /* ---------------------------------------------------------------------
+     DESCARGAR RESUMEN DEL PEDIDO (respaldo en texto, sin depender de WhatsApp)
+     --------------------------------------------------------------------- */
+  function downloadOrderSummary(){
+    try{
+      const ids = Object.keys(cart);
+      if(ids.length === 0) return;
+      const fecha = new Date().toLocaleString('es-MX');
+      const lines = [`Resumen de pedido — Tu Empresa`, `Generado: ${fecha}`, ''];
+      ids.forEach((id,i)=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        if(!p) return;
+        let line = `${i+1}. ${p.name} (${p.pres}) — cantidad: ${cart[id]}`;
+        if(cartNotes[id]) line += ` — nota: ${cartNotes[id]}`;
+        lines.push(line);
+      });
+      lines.push('', `Total de productos distintos: ${totalLines()}`, `Total de piezas: ${totalUnits()}`);
+      const blob = new Blob([lines.join('\n')], { type:'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `pedido-tu-empresa-${Date.now()}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Resumen descargado');
+    } catch(err){
+      console.error('No se pudo descargar el resumen:', err);
+      showToast('No se pudo descargar el resumen, intenta de nuevo');
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+     OFFSETS DINÁMICOS (evita números "mágicos" fijos en el responsive)
+     --------------------------------------------------------------------- */
+  function updateStickyOffsets(){
+    try{
+      const header = document.querySelector('header');
+      const catNavWrap = document.querySelector('.cat-nav-wrap');
+      if(!header) return;
+      const headerH = header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-h', `${headerH}px`);
+      const catNavH = catNavWrap ? catNavWrap.getBoundingClientRect().height : 0;
+      document.querySelectorAll('.cat-group').forEach(g=>{
+        g.style.scrollMarginTop = `${headerH + catNavH + 16}px`;
+      });
+      window._scrollOffset = headerH + catNavH + 16;
+    } catch(err){ console.error('Error al calcular offsets de scroll:', err); }
   }
 
   /* ---------------------------------------------------------------------
@@ -1441,6 +1673,16 @@
     try{ initScrollSpy(); } catch(err){ console.error('Error al iniciar el scrollspy:', err); }
     try{ initFirebase(); } catch(err){ console.error('Error al iniciar Firebase:', err); }
     try{ renderCartDrawer(); } catch(err){ console.error('Error al iniciar el carrito:', err); }
+    try{ updateStickyOffsets(); } catch(err){ console.error('Error al calcular offsets:', err); }
+
+    const fechaInput = document.getElementById('fechaEntrega');
+    if(fechaInput){ fechaInput.min = new Date().toISOString().split('T')[0]; }
+
+    let resizeTimer = null;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateStickyOffsets, 150);
+    });
 
     const note = document.getElementById('authDisabledNote');
     if(note){
